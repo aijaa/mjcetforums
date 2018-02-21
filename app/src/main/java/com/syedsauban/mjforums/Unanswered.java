@@ -2,6 +2,7 @@ package com.syedsauban.mjforums;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class Unanswered extends android.support.v4.app.Fragment {
     ArrayList<Question> questions;
     RecyclerView recyclerView;
     UnasweredFeedAdapter unasweredFeedAdapter;
+    FloatingActionButton fab;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +44,9 @@ public class Unanswered extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.unanswered,container,false);
+
+//        fab=(FloatingActionButton)rootView.findViewById(R.id.fab);
+//        fab.setVisibility(View.GONE);
         questions=new ArrayList<>();
         mDatabase=FirebaseDatabase.getInstance();
         mReference=mDatabase.getReference();

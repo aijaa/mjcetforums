@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="horizontal"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
+    <!--<Spinner-->
+        <!--android:dropDownVerticalOffset="-60dp"-->
+        <!--android:id="@+id/bytopic_dropdown"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:spinnerMode="dropdown"-->
+        <!--android:layout_height="wrap_content">-->
 
-    <TextView
-        tools:ignore="MissingPrefix"
-        fontPath="font/weblysleek_ui_normal.ttf"
+    <!--</Spinner>-->
+    <!--<com.andraskindler.quickscroll.QuickScroll-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
+
+    <!--</com.andraskindler.quickscroll.QuickScroll>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="match_parent"/>
+    <com.futuremind.recyclerviewfastscroll.FastScroller
+        android:id="@+id/fastscroll"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/tv1"
-        android:text="By Topic Tab in weblysleek_ui_normal"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"/>
 
-    <TextView
-        tools:ignore="MissingPrefix"
-        fontPath="font/rokkitt_bold.ttf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv1"
-        android:layout_centerHorizontal="true"
-        android:text="By Topic Tab in rokkitt_bold"/>
-
-</RelativeLayout>
+</LinearLayout>

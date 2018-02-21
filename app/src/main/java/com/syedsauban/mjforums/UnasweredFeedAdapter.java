@@ -100,6 +100,7 @@ public class UnasweredFeedAdapter extends RecyclerView.Adapter<UnasweredFeedAdap
         }
 
         final String finalQuestionKeey = QuestionKeey;
+
         FirebaseDatabase.getInstance().getReference().child("Questions").
                 child(finalQuestionKeey).child("Followers")
                 .addChildEventListener(new ChildEventListener() {

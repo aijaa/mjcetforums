@@ -123,7 +123,7 @@
         <!--android:background="@drawable/rounded"/>-->
     <ListView
         android:divider="@null"
-        android:id="@+id/listview"
+        android:id="@+id/recyclerview"
         android:background="#dddddd"
         android:layout_weight="1"
         android:layout_width="match_parent"

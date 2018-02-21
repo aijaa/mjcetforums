@@ -127,7 +127,7 @@ public class AskQuestion extends AppCompatActivity {
 
         chipCloud = new ChipCloud(this, flexbox,config);
 
-        listView=(ListView)findViewById(R.id.listview);
+        listView=(ListView)findViewById(R.id.recyclerview);
 
         editText=(EditText)findViewById(R.id.edittext);
 
@@ -354,7 +354,7 @@ public class AskQuestion extends AppCompatActivity {
                     myRef.child("Questions").child(QuestionKey).setValue(NewQuestion);
                     myRef.child("users").child(key).child("Questions").child(QuestionKey).setValue(NewQuestion);
                     for (String tag : tags) {
-                        myRef.child("Tags").child(tag).child("Questions").child(QuestionKey).setValue(NewQuestion);
+                        myRef.child("Tags").child(tag).child("Posts").child(QuestionKey).setValue(NewQuestion);
                     }
                     startActivity(new Intent(AskQuestion.this, launching.class));
                 }

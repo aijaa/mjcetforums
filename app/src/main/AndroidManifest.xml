@@ -54,7 +54,8 @@
         <activity android:name=".DeptAndYearActivity" />
         <activity android:name=".SubmitAnswer" />
         <activity android:name=".MyQuestions" />
-        <activity android:name=".MyAnswers"></activity>
+        <activity android:name=".MyAnswers" />
+        <activity android:name=".TopicWiseFeed"></activity>
     </application>
 
 </manifest>

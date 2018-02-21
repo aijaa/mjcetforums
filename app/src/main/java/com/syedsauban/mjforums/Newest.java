@@ -2,6 +2,7 @@ package com.syedsauban.mjforums;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,71 +30,73 @@ public class Newest extends android.support.v4.app.Fragment {
     ArrayList<Answer> answers;
     RecyclerView recyclerView;
     FeedClassAdapter feedClassAdapter;
+    FloatingActionButton fab;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.newest, container, false);
-        answers=new ArrayList<>();
-        mDatabase=FirebaseDatabase.getInstance();
-        mReference=mDatabase.getReference();
-        recyclerView=(RecyclerView)rootView.findViewById(R.id.recyclerviewinfeed);
+//        fab=(FloatingActionButton)rootView.findViewById(R.id.fab);
+//        fab.setVisibility(View.VISIBLE);
+        try {
+            answers = new ArrayList<>();
+            mDatabase = FirebaseDatabase.getInstance();
+            mReference = mDatabase.getReference();
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerviewinfeed);
 
-        feedClassAdapter=new FeedClassAdapter(answers,getActivity());
+            feedClassAdapter = new FeedClassAdapter(answers, getActivity());
 
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(feedClassAdapter);
+            recyclerView.setAdapter(feedClassAdapter);
 
-        Query query=mReference.child("Answers");
+            Query query = mReference.child("Answers");
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    try {
+                    if (dataSnapshot.exists()) {
+                        Log.v("NewestDaS",dataSnapshot.toString());
 
 
-
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
-                    for(DataSnapshot ds:dataSnapshot.getChildren())
-                    {
-                        if(ds.exists())
-                        {
+                            Log.v("NewestDaS",dataSnapshot.toString());
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                if (ds.exists()) {
 //                            Answer displayAnswer=new Answer();
 //                            Answer answer=new Answer();
-                            Log.v("dsInString",ds.toString());
-                            Log.v("dsInString2",ds.getChildren().iterator().next().child("nameOfAsker").toString());
-                            long max=0;
-                            long numberOfUpvotes=0;
+                                    Log.v("dsInString", ds.toString());
+                                    Log.v("dsInString2", ds.getChildren().iterator().next().child("nameOfAsker").toString());
+                                    long max = 0;
+                                    long numberOfUpvotes = 0;
 //                            max=(Integer) ds.getChildren().iterator().next().child("numberOfUpvotes")
 //                                    .getValue();
-                            Answer answer = new Answer();
-                            Answer displayAnswer=new Answer();
-                            String displayAnswerString="empty";
-                            for(DataSnapshot answerChild: ds.getChildren()) {
-                                if (answerChild.exists()) {
-                                    numberOfUpvotes = answerChild.child("Upvoters").getChildrenCount();
-                                    Log.v("NumberOfUpvotes",answerChild.child("Upvoters").getChildrenCount()+"");
-                                    Log.v("NewestDS", answerChild.getValue(Answer.class).getAnswerString()+ "");
-                                    if (max <= numberOfUpvotes) {
-                                        max = numberOfUpvotes;
-                                        displayAnswerString = answerChild.child("answerString")
-                                                .getValue().toString();
-                                        displayAnswer=answerChild.getValue(Answer.class);
+                                    Answer answer = new Answer();
+                                    Answer displayAnswer = new Answer();
+                                    String displayAnswerString = "empty";
+                                    for (DataSnapshot answerChild : ds.getChildren()) {
+                                        if (answerChild.exists()) {
+                                            Log.v("answerChildInDS",answerChild.toString());
+                                            numberOfUpvotes = answerChild.child("Upvoters").getChildrenCount();
+                                            Log.v("NumberOfUpvotes", answerChild.child("Upvoters").getChildrenCount() + "");
+                                            Log.v("NewestDS12", answerChild+ "");
+                                            if (max <= numberOfUpvotes) {
+                                                max = numberOfUpvotes;
+
+                                                displayAnswer = answerChild.getValue(Answer.class);
+                                            }
+                                        }
+                                        Log.v("InAnsWB,max", displayAnswer.getAnswerWrittenBy() + "," + max);
                                     }
-                                }
-                                Log.v("InAnsWB,max",displayAnswer.getAnswerWrittenBy()+","+max);
-                            }
 
-                        Log.v("OutAnsWB,max",displayAnswer.getAnswerWrittenBy()+","+max);
+                                    Log.v("OutAnsWB,max", displayAnswer.getAnswerWrittenBy() + "," + max);
 
-                            answers.add(displayAnswer);
-                            feedClassAdapter.notifyDataSetChanged();
+                                    answers.add(displayAnswer);
+                                    feedClassAdapter.notifyDataSetChanged();
 
 
-
-                            //
+                                    //
 //     if(max<numberOfUpvotes)
 //                                {
 //                                    max=numberOfUpvotes;
@@ -138,18 +141,32 @@ public class Newest extends android.support.v4.app.Fragment {
 //                                answers.add(noAnswer);
 //                                feedClassAdapter.notifyDataSetChanged();
 //                            }
+                                }
+                            }
                         }
+
                     }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
-        return rootView;
+            return rootView;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return inflater.inflate(R.layout.newest, container, false);
     }
+
 }
 

@@ -102,19 +102,21 @@ public class SubmitAnswer extends AppCompatActivity {
                     answerButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String AnswerString=mEditor.getText().toString();
-                            if(AnswerString!=null&&!AnswerString.equals(""))
-                            {
-                                String AskerKey=getIntent().getStringExtra("UserKey");
-                                ArrayList<String> tags=getIntent().getStringArrayListExtra("tags");
-                                String questionKey=getIntent().getStringExtra("questionKey");
-                                String DeptNameAndYear=prefs.getString("deptNameAndYear","");
+                            String AnswerString = mEditor.getText().toString();
+                            if (AnswerString != null && !AnswerString.equals("")) {
+                                try
+                                {
 
-                                String NameOfAsker=getIntent().getStringExtra("NameOfAsker");
+                                String AskerKey = getIntent().getStringExtra("UserKey");
+                                ArrayList<String> tags = getIntent().getStringArrayListExtra("tags");
+                                String questionKey = getIntent().getStringExtra("questionKey");
+                                String DeptNameAndYear = prefs.getString("deptNameAndYear", "");
+
+                                String NameOfAsker = getIntent().getStringExtra("NameOfAsker");
 
                                 mReference.child("Questions").child(questionKey).child("hasAnswers").setValue(true);
-                                Answer newAnswer=new Answer(new Date().getTime()*-1, questionString,questionDetailsString,NameOfAsker,AnswerString,UserName,key,UserId,DeptNameAndYear,tags,1);
-                                mReference.child("Questions").child(questionKey).child("Answers").child(questionKey).setValue(newAnswer);
+                                Answer newAnswer = new Answer(new Date().getTime() * -1, questionString, questionDetailsString, NameOfAsker, AnswerString, UserName, key, UserId, DeptNameAndYear, tags, 1);
+//                                mReference.child("Questions").child(questionKey).child("Answers").child(questionKey).setValue(newAnswer);
 
                                 mReference.child("users").child(AskerKey).child("Questions").child(questionKey).child("hasAnswers").setValue(true);
                                 mReference.child("users").child(AskerKey).child("Questions").child(questionKey).child("Answers").child(questionKey).child(UserName).setValue(newAnswer);
@@ -122,14 +124,18 @@ public class SubmitAnswer extends AppCompatActivity {
                                 mReference.child("users").child(key).child("Answers").child(questionKey).setValue(newAnswer);
                                 mReference.child("users").child(key).child("Answers").child(questionKey).child("numberOfUpvotes").setValue(0);
 
-                                for(String tag:tags)
-                                {
-                                    mReference.child("Tags").child(tag).child("Questions").child(questionKey).child("hasAnswers").setValue(true);
-                                    mReference.child("Tags").child(tag).child("Questions").child(questionKey).child("Answers").child(questionKey).setValue(newAnswer);
+                                for (String tag : tags) {
+                                    mReference.child("Tags").child(tag).child("Posts").child(questionKey).child("hasAnswers").setValue(true);
+                                    mReference.child("Tags").child(tag).child("Posts").child(questionKey).child(UserName).setValue(newAnswer);
                                 }
                                 mReference.child("Answers").child(questionKey).child(UserName).setValue(newAnswer);
-                                startActivity(new Intent(SubmitAnswer.this,launching.class));
+                                startActivity(new Intent(SubmitAnswer.this, launching.class));
                             }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
                         }
                     });
                 }

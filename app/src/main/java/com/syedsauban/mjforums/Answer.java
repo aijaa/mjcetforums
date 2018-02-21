@@ -13,6 +13,8 @@ public class Answer {
     private ArrayList<String> tags;
     private String deptAndYear;
     private int numberOfUpvotes;
+    private boolean hasAnswers;
+
 
     private String UserKey,UserId,QuestionString,QuestionDetailsString,NameOfAsker;
     public Answer(long timestamp,String QuestionString, String QuestionDetailsString,String NameOfAsker, String AnswerString, String AnswerWrittenBy, String UserKey, String UserId, String deptAndYear, ArrayList<String> tags,int numberOfUpvotes
@@ -30,10 +32,10 @@ public class Answer {
         this.UserKey=UserKey;
         this.AnswerString=AnswerString;
         this.AnswerWrittenBy=AnswerWrittenBy;
+
     }
 
-    public Answer(long timestamp,String QuestionString, String QuestionDetailsString,String NameOfAsker,ArrayList<String> tags,int numberOfUpvotes
-    )
+    public Answer(long timestamp,String QuestionString, String QuestionDetailsString,String NameOfAsker,ArrayList<String> tags)
     {
         this.isDisplayAnswer=false;
         this.numberOfUpvotes=numberOfUpvotes;
@@ -44,10 +46,12 @@ public class Answer {
         this.tags=tags;
     }
 
+
     public Answer()
     {
 
     }
+
 
     public boolean isDisplayAnswer() {
         return isDisplayAnswer;
@@ -130,6 +134,7 @@ public class Answer {
         AnswerString = answerString;
     }
 
+
     public void setAnswerWrittenBy(String answerWrittenBy) {
         AnswerWrittenBy = answerWrittenBy;
     }
@@ -148,5 +153,12 @@ public class Answer {
     }
 
 
+    public void setHasAnswers(boolean hasAnswers) {
+        this.hasAnswers = hasAnswers;
+    }
+
+    public boolean isHasAnswers() {
+        return hasAnswers;
+    }
 }
 

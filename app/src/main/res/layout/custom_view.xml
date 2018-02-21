@@ -24,7 +24,6 @@
         android:layout_alignParentLeft="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:text="How was the Einstein's theory that suggested existence of  gravitational waves was proved?"
         android:textColor="#1d1d1d"
         android:textSize="20sp"
@@ -43,23 +42,8 @@
         android:text="asked by Syed Souban"
         android:layout_below="@id/question"
         android:textSize="12sp"/>
-    <Button
-        android:textColor="#787878"
-        app:elevation="0dp"
-        android:layout_marginBottom="10dp"
-        android:elevation="0dp"
-        android:text="2 Answers"
-        android:background="@null"
-        android:textAllCaps="false"
-        android:padding="0dp"
-        android:gravity="top|left"
-        android:visibility="visible"
-        android:layout_below="@id/deptandyear"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:id="@+id/numberOfAnswers"/>
-    <ImageButton
 
+    <ImageButton
         android:layout_below="@id/deptandyear"
         android:id="@+id/answerButtonUA"
         android:layout_marginTop="24dp"
